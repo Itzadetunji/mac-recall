@@ -1,0 +1,15 @@
+{
+	"appId": "com.example.electron-course",
+	"files": ["dist-electron", "dist-react"],
+	"icon": "./desktop-image.png",
+	"mac": {
+		"target": "dmg"
+	},
+	"linux": {
+		"target": "AppImage",
+		"category": "Utility"
+	},
+	"win": {
+		"target": ["portable", "msi"]
+	}
+}
