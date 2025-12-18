@@ -1,53 +1,102 @@
 import { useEffect, useMemo, useState } from "react";
-import reactLogo from "./assets/react.svg";
 import "./App.css";
-import { BaseChart } from "./BaseChart";
-import { useStatistics } from "./useStatistics";
 import { Chart } from "./Chart";
+import { useStatistics } from "./useStatistics";
 
 function App() {
-	const [count, setCount] = useState(0);
 	const statistics = useStatistics(10);
+	const [activeView, setActiveView] = useState<View>("CPU");
+
 	const cpuUsages = useMemo(
 		() => statistics.map((stat) => stat.cpuUsage),
 		[statistics]
 	);
+	const ramUsages = useMemo(
+		() => statistics.map((stat) => stat.ramUsage),
+		[statistics]
+	);
+	const storageUsages = useMemo(
+		() => statistics.map((stat) => stat.storageUsage),
+		[statistics]
+	);
+
+	const activeUsages = useMemo(() => {
+		switch (activeView) {
+			case "CPU":
+				return cpuUsages;
+			case "RAM":
+				return ramUsages;
+			case "STORAGE":
+				return storageUsages;
+		}
+	}, [activeView, cpuUsages, ramUsages, storageUsages]);
+
+	useEffect(() => {
+		window.electron.subscribeChangeView((view) => {
+			setActiveView(view);
+		});
+	}, []);
 
 	console.log(statistics);
 	return (
 		<div className="App">
-			<div style={{ height: 120 }}>
-				<Chart
+			<Header />
+			<div className="main">
+				{/* <div>
+				<SelectOption
+					onClick={() => setActiveView("CPU")}
+					title="CPU"
+					view="CPU"
+					subTitle={staticData?.cpuModel ?? ""}
 					data={cpuUsages}
-					maxDataPoints={10}
 				/>
-			</div>
-			<div>
-				<a
-					href="https://react.dev"
-					target="_blank"
-				>
-					<img
-						src={reactLogo}
-						className="logo react"
-						alt="React logo"
+				<SelectOption
+					onClick={() => setActiveView("RAM")}
+					title="RAM"
+					view="RAM"
+					subTitle={(staticData?.totalMemoryGB.toString() ?? "") + " GB"}
+					data={ramUsages}
+				/>
+				<SelectOption
+					onClick={() => setActiveView("STORAGE")}
+					title="STORAGE"
+					view="STORAGE"
+					subTitle={(staticData?.totalStorage.toString() ?? "") + " GB"}
+					data={storageUsages}
+				/>
+			</div> */}
+				<div className="mainGrid">
+					<Chart
+						// selectedView={activeView}
+						data={activeUsages}
+						maxDataPoints={10}
 					/>
-				</a>
+				</div>
 			</div>
-			<h1>Vite + React</h1>
-			<div className="card">
-				<button onClick={() => setCount((count) => count + 1)}>
-					count is {count}
-				</button>
-				<p>
-					Edit <code>src/App.tsx</code> and save to test HMR
-				</p>
-			</div>
-			<p className="read-the-docs">
-				Click on the Vite and React logos to learn more
-			</p>
 		</div>
 	);
 }
 
 export default App;
+
+const Header = () => {
+	return (
+		<header>
+			<button
+				id="close"
+				type="button"
+				onClick={() => window.electron.sendFrameAction("CLOSE")}
+			/>
+			<button
+				id="minimize"
+				type="button"
+				onClick={() => window.electron.sendFrameAction("MINIMIZE")}
+			/>
+			<button
+				id="maximize"
+				type="button"
+				onClick={() => window.electron.sendFrameAction("MAXIMIZE")}
+			/>
+		</header>
+	);
+};
