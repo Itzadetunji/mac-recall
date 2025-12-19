@@ -14,9 +14,7 @@
 		"transpile:electron": "tsc --project src/electron/tsconfig.json",
 		"dist:mac": "bun run transpile:electron && bun run build && electron-builder --mac --arm64",
 		"dist:win": "bun run transpile:electron && bun run build && electron-builder --win --x64",
-		"dist:linux": "bun run transpile:electron && bun run build && electron-builder --linux --x64",
-		"test:e2e": "playwright test",
-		"test:unit": "vitest src"
+		"dist:linux": "bun run transpile:electron && bun run build && electron-builder --linux --x64"
 	},
 	"dependencies": {
 		"@types/os-utils": "^0.0.4",
@@ -24,12 +22,10 @@
 		"os-utils": "^0.0.14",
 		"react": "^19.2.0",
 		"react-dom": "^19.2.0",
-		"recharts": "^3.6.0",
-		"vitest": "^4.0.16"
+		"recharts": "^3.6.0"
 	},
 	"devDependencies": {
 		"@eslint/js": "^9.39.1",
-		"@playwright/test": "^1.57.0",
 		"@types/node": "^24.10.1",
 		"@types/react": "^19.2.5",
 		"@types/react-dom": "^19.2.3",
