@@ -1,6 +1,7 @@
 import { Route, HashRouter as Router, Routes } from "react-router-dom";
-import GalleryPage from "./pages/GalleryPage";
-import MainPage from "./pages/MainPage";
+import { GalleryPage } from "./pages/GalleryPage";
+import { MainPage } from "./pages/MainPage";
+import SettingsPage from "./pages/SettingsPage";
 
 function App() {
 	return (
@@ -13,6 +14,10 @@ function App() {
 				<Route
 					path="/gallery"
 					element={<GalleryPage />}
+				/>
+				<Route
+					path="/settings"
+					element={<SettingsPage />}
 				/>
 			</Routes>
 		</Router>
