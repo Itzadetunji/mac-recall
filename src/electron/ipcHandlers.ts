@@ -12,7 +12,7 @@ export const registerIpcHandlers = () => {
         .filter((file) => file.endsWith(".png"))
         .map((file) => ({
           name: file,
-          url: `file://${path.join(dir, file)}`,
+          url: `screenshot://${path.join(dir, file)}`,
           timestamp: fs.stat(path.join(dir, file)).then((stat) => stat.mtime),
         }));
 

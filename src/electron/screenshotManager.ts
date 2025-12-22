@@ -4,7 +4,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 
 let screenshotInterval: NodeJS.Timeout | null = null;
-let currentIntervalMs = 5000;
+let currentIntervalMs = 1115000;
 
 const getDocumentsPath = () => app.getPath("documents");
 const getScreenshotDir = () => path.join(getDocumentsPath(), "Mac Recall Documents");

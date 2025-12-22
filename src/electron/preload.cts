@@ -10,11 +10,11 @@ electron.contextBridge.exposeInMainWorld("electron", {
   sendFrameAction: (payload) => ipcSend("sendFrameAction", payload),
   getImages: () => ipcInvoke("getImages"),
   getSettings: () => ipcInvoke("getSettings"),
-  saveSettings: (interval) => ipcInvoke("saveSettings"),
+  saveSettings: (interval) => ipcInvoke("saveSettings", interval),
 } satisfies Window["electron"]);
 
-const ipcInvoke = <Key extends keyof EventPayloadMapping>(key: Key): Promise<EventPayloadMapping[Key]> => {
-  return electron.ipcRenderer.invoke(key);
+const ipcInvoke = <Key extends keyof EventPayloadMapping>(key: Key, payload?: unknown): Promise<EventPayloadMapping[Key]> => {
+  return electron.ipcRenderer.invoke(key, payload);
 };
 
 const ipcOn = <Key extends keyof EventPayloadMapping>(key: Key, callback: (payload: EventPayloadMapping[Key]) => void) => {

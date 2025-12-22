@@ -1,6 +1,8 @@
-import { useState, useEffect } from "react";
-import { Icon } from "@iconify/react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { PhArrowLeftLight } from "../assets/svg-icons/arrow-left";
+import { MaterialSymbolsLightScreenshotMonitorOutline } from "../assets/svg-icons/screenshot-icon";
+import { PhX } from "../assets/svg-icons/x-icon";
 
 interface Image {
 	name: string;
@@ -22,6 +24,7 @@ export const GalleryPage = () => {
 		try {
 			const data = await window.electron.getImages();
 			setImages(data);
+			console.log("Fetched images:", data);
 		} catch (error) {
 			console.error("Failed to fetch images", error);
 		} finally {
@@ -42,10 +45,7 @@ export const GalleryPage = () => {
 						onClick={() => navigate("/")}
 						className="flex cursor-pointer items-center gap-2 text-gray-900 transition-colors hover:text-black"
 					>
-						<Icon
-							icon="heroicons:arrow-left"
-							className="h-5 w-5"
-						/>
+						<PhArrowLeftLight className="h-5 w-5" />
 						<span className="font-medium">Back to Search</span>
 					</button>
 					<h1 className="font-bold text-2xl text-gray-900">Gallery</h1>
@@ -58,10 +58,7 @@ export const GalleryPage = () => {
 					</div>
 				) : images.length === 0 ? (
 					<div className="flex flex-col items-center justify-center py-20 text-gray-500">
-						<Icon
-							icon="heroicons:photo"
-							className="mb-4 h-16 w-16 text-gray-300"
-						/>
+						<MaterialSymbolsLightScreenshotMonitorOutline className="mb-4 h-16 w-16 text-gray-300" />
 						<p className="text-lg">There are no images yet.</p>
 						<p className="text-sm">
 							Screenshots will appear here automatically.
@@ -112,10 +109,7 @@ export const GalleryPage = () => {
 								title="Close"
 								type="button"
 							>
-								<Icon
-									icon="heroicons:x-mark"
-									className="h-5 w-5"
-								/>
+								<PhX className="h-5 w-5" />
 							</button>
 						</div>
 

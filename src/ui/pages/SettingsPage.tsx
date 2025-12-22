@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react";
-import { Icon } from "@iconify/react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { PhArrowLeftLight } from "../assets/svg-icons/arrow-left";
 
 export default function SettingsPage() {
 	const [interval, setInterval] = useState(5000);
@@ -38,10 +38,7 @@ export default function SettingsPage() {
 						className="flex cursor-pointer items-center gap-2 text-gray-900 transition-colors hover:text-black"
 						type="button"
 					>
-						<Icon
-							icon="heroicons:arrow-left"
-							className="h-5 w-5"
-						/>
+						<PhArrowLeftLight className="h-5 w-5" />
 						<span className="font-medium">Back</span>
 					</button>
 					<h1 className="font-bold text-2xl text-gray-900">Settings</h1>

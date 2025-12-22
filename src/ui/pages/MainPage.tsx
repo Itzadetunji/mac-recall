@@ -1,6 +1,9 @@
-import { Icon } from "@iconify/react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { PhFolderOpenDuotone } from "../assets/svg-icons/folder-open";
+import { PhMagnifyingGlassBold } from "../assets/svg-icons/magnifiying-glass-icon";
+import { MaterialSymbolsLightScreenshotMonitorOutline } from "../assets/svg-icons/screenshot-icon";
+import { PhGear } from "../assets/svg-icons/settings-icon";
 
 export const MainPage = () => {
 	const [showPermissionModal, setShowPermissionModal] = useState(() => {
@@ -18,10 +21,7 @@ export const MainPage = () => {
 		<div className="flex min-h-screen flex-col items-center justify-center bg-gray-50 p-8 text-gray-900">
 			<div className="flex w-full max-w-2xl flex-col gap-6">
 				<div className="flex flex-col items-center gap-2">
-					<Icon
-						icon="heroicons:cpu-chip"
-						className="h-12 w-12 text-black"
-					/>
+					<MaterialSymbolsLightScreenshotMonitorOutline className="h-12 w-12 text-black" />
 					<h1 className="text-center font-bold text-4xl text-gray-900">
 						Mac Recall
 					</h1>
@@ -29,10 +29,7 @@ export const MainPage = () => {
 
 				<div className="relative">
 					<div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-						<Icon
-							icon="heroicons:magnifying-glass"
-							className="h-5 w-5 text-gray-400"
-						/>
+						<PhMagnifyingGlassBold className="h-5 w-5" />
 					</div>
 					<input
 						type="text"
@@ -45,10 +42,7 @@ export const MainPage = () => {
 							onClick={() => navigate("/settings")}
 							className="cursor-pointer text-gray-400 hover:text-gray-600"
 						>
-							<Icon
-								icon="heroicons:adjustments-horizontal"
-								className="h-5 w-5"
-							/>
+							<PhGear className="h-5 w-5" />
 						</button>
 					</div>
 				</div>
@@ -74,10 +68,7 @@ export const MainPage = () => {
 					<div className="w-full max-w-md transform rounded-2xl bg-white p-6 shadow-2xl transition-all">
 						<div className="mb-4 flex items-center justify-center">
 							<div className="rounded-full bg-gray-100 p-3">
-								<Icon
-									icon="heroicons:folder-open"
-									className="h-8 w-8 text-black"
-								/>
+								<PhFolderOpenDuotone className="h-8 w-8 text-black" />
 							</div>
 						</div>
 						<h2 className="mb-2 text-center font-bold text-gray-900 text-xl">

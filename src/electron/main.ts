@@ -1,4 +1,4 @@
-import { app, BrowserWindow } from "electron";
+import { app, BrowserWindow, net, protocol } from "electron";
 import path from "node:path";
 import { getPreloadPath } from "./pathResolver.js";
 import { getStaticData, pollResources } from "./resourceManager.js";
@@ -6,6 +6,23 @@ import { createTray } from "./tray.js";
 import { ipcMainHandle, isDevelopment } from "./utils.js";
 import { initScreenshotManager } from "./screenshotManager.js";
 import { registerIpcHandlers } from "./ipcHandlers.js";
+
+protocol.registerSchemesAsPrivileged([{ scheme: "screenshot", privileges: { bypassCSP: true } }]);
+
+app.whenReady().then(() => {
+  // Register custom protocol for serving local screenshots
+
+  protocol.handle("screenshot", (request) => {
+    const url = request.url.replace("screenshot://", "");
+    try {
+      const filePath = decodeURIComponent(url);
+      return net.fetch(`file://${filePath}`);
+    } catch (error) {
+      console.error(error);
+      return new Response("File not found", { status: 404 });
+    }
+  });
+});
 
 app.on("ready", () => {
   registerIpcHandlers();
